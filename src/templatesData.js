@@ -5,6 +5,7 @@ export const postData = [
         author: 'Marina',
         shortText: 'Text 1',
         commentsNumber: '6',
+        categoryId: [1, 2],
         comments: [
             {
                 commentId: '1-1',
@@ -21,6 +22,7 @@ export const postData = [
         title: 'Post 2',
         author: 'Marina',
         shortText: 'Text 2',
+        categoryId: [2, 3],
         commentsNumber: '1',
         comments: [
             {
@@ -51,6 +53,7 @@ export const postData = [
         author: 'Marina',
         shortText: 'Text 3',
         commentsNumber: '8',
+        categoryId: [2, 4],
         comments: [
             {
                 commentId: '3-1',
@@ -68,6 +71,7 @@ export const postData = [
         author: 'Marina',
         shortText: 'Text 4',
         commentsNumber: '2',
+        categoryId: [4, 5],
         comments: [
             {
                 commentId: '4-1',

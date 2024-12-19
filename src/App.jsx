@@ -18,7 +18,12 @@ function App() {
   return (
     <>
       <Global styles={globalStyles} />
-      <BrowserRouter>
+      <BrowserRouter
+        future={{
+          v7_startTransition: true,
+          v7_relativeSplatPath: true,
+        }}
+      >
         <Routes>
           <Route path='/' element={<MainPage />}>
             <Route path='/' element={<PostList />}/>

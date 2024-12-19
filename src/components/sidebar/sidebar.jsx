@@ -1,4 +1,4 @@
-import CategoriesList from "../../features/postList/categoriesList";
+import CategoriesList from "../../features/categoriesList/categoriesList";
 import { SidebarDiv } from "../../styles";
 
 function Sidebar () {

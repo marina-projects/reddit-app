@@ -27,6 +27,12 @@ export const MainPageDiv = styled(Div)`
 export const SidebarDiv = styled(Div)`
     width: 25%;
     padding: 20px;
+
+    h4 {
+        &:hover {
+            cursor: pointer;
+        }
+    }
 `;
 
 export const PostsListDiv = styled(Div)`

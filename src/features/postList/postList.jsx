@@ -1,30 +1,44 @@
-//libraries
+// Libraries
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
+// Components
 import PostCard from "../../components/postCard/postCard";
+
+// Styles
 import { PostsListDiv } from "../../styles";
-import { postData } from "../../templatesData";
 
-function PostList () {
+// Redux
+import { selectPosts, loadPosts } from "./postListSlice";
 
-    const posts = postData;
-    
-    return (
-        <PostsListDiv>
-            {
-                posts.map((post)=> (
+function PostList() {
+  const posts = useSelector(selectPosts); // Получаем данные из Store
+  const dispatch = useDispatch();
 
-                    <PostCard 
-                        title={post.title}
-                        author={post.author}
-                        shortText={post.shortText}
-                        key={post.id}
-                        id={post.id}
-                        commentsList={post.comments}
-                    />
-                ))
-            }    
-        </PostsListDiv>
-    )
+  // Загружаем данные при монтировании
+  useEffect(() => {
+    dispatch(loadPosts());
+  }, [dispatch]);
+
+  // Обработка пустого состояния
+  if (!posts || posts.length === 0) {
+    return <p>No posts available</p>;
+  }
+
+  return (
+    <PostsListDiv>
+      {posts.map((post) => (
+        <PostCard
+          title={post.title}
+          author={post.author}
+          shortText={post.shortText}
+          key={post.id}
+          id={post.id}
+          commentsList={post.comments}
+        />
+      ))}
+    </PostsListDiv>
+  );
 }
 
 export default PostList;
