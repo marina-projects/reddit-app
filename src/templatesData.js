@@ -1,7 +1,7 @@
 export const postData = [
     {
         id: '1',
-        title: 'Post 1',
+        title: 'Post 1: Some title',
         author: 'Marina',
         shortText: 'Text 1',
         commentsNumber: '6',
@@ -21,7 +21,7 @@ export const postData = [
         id: '2',
         title: 'Post 2',
         author: 'Marina',
-        shortText: 'Text 2',
+        shortText: 'Text 2: cool story',
         categoryId: [2, 3],
         commentsNumber: '1',
         comments: [

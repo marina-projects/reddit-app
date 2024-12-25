@@ -21,6 +21,14 @@ const postListSlice = createSlice({
           post.categoryId.includes(categoryId)
         );
       },
+      filterBySearch: (state, action) => {
+        const term = action.payload.toLowerCase();
+        state.posts = state.allPosts.filter(
+          (post) =>
+            post.title.toLowerCase().includes(term) || // Поиск в заголовке
+            post.shortText.toLowerCase().includes(term) // Поиск в тексте
+        );
+      },
       resetFilter: (state) => {
         state.posts = state.allPosts; // Сбрасываем фильтр, показываем все посты
       },
@@ -28,6 +36,6 @@ const postListSlice = createSlice({
   });
   
   export const selectPosts = (state) => state.posts.posts;
-  export const { loadPosts, filterByCategory, resetFilter } = postListSlice.actions;
+  export const { loadPosts, filterByCategory, resetFilter, filterBySearch } = postListSlice.actions;
   export default postListSlice.reducer;
   
