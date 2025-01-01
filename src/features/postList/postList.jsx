@@ -9,18 +9,30 @@ import PostCard from "../../components/postCard/postCard";
 import { PostsListDiv } from "../../styles";
 
 // Redux
-import { selectPosts, loadPosts } from "./postListSlice";
+import { loadPostsFromAPI, selectPosts, selectError, selectStatus } from "./postListSlice";
+
 
 function PostList() {
   const posts = useSelector(selectPosts); // Получаем данные из Store
+  console.log(posts);
+  const status = useSelector(selectStatus);
+  const error = useSelector(selectError);
+  
   const dispatch = useDispatch();
 
   // Загружаем данные при монтировании
   useEffect(() => {
-    dispatch(loadPosts());
+    dispatch(loadPostsFromAPI('reactjs'));
   }, [dispatch]);
 
-  // Обработка пустого состояния
+  if(status === 'loading') {
+    return <p>Loading...</p>;
+  }
+
+  if (status === 'failed') {
+    return <p>Error: {error}</p>
+  }
+
   if (!posts || posts.length === 0) {
     return <p>No posts available</p>;
   }
@@ -31,10 +43,10 @@ function PostList() {
         <PostCard
           title={post.title}
           author={post.author}
-          shortText={post.shortText}
+          shortText={post.selfText}
           key={post.id}
           id={post.id}
-          commentsList={post.comments}
+          commentsList={post.num_comments}
         />
       ))}
     </PostsListDiv>

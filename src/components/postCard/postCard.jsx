@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 function PostCard ({ title, author, shortText, id, commentsList }) {
 
-    const commentsNumber = commentsList.length;
+    //const commentsNumber = commentsList.length;
 
     return(
         <>
@@ -12,7 +12,7 @@ function PostCard ({ title, author, shortText, id, commentsList }) {
                 <h3>{title}</h3>
                 <p>{author}</p>
                 <p>{shortText}</p>
-                <p>Comments: {commentsNumber}</p>
+                <p>Comments: {commentsList}</p>
                 <Link to={`/${id}`}><Button primary>Read more</Button></Link>
             </PostCardDiv>
         </>
