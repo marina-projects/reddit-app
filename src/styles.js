@@ -19,6 +19,22 @@ export const Div = styled.div`
     flex-wrap: ${(props) => (props.row ? 'wrap' : '')};
     background-color: ${(props) => (props.gray ? '#f1f1f1' : 'white')};
     padding: 10px;
+
+    /* Медиазапрос для мобильных устройств */
+    @media (max-width: 480px) {
+        width: ${(props) => props.mobileWidth || '100%'};
+        justify-content: ${(props) =>
+        props.mobileJustifySpace ? 'space-between' :
+        props.mobileJustifyStart ? 'flex-start' :
+        props.mobileJustifyEnd ? 'flex-end' :
+        'center'
+    };
+    align-items: ${(props) =>
+        props.mobileAlignStart ? 'flex-start' :
+        props.mobileAlignEnd ? 'flex-end' :
+        'center'
+    };
+    }
 `;
 
 export const MainPageDiv = styled(Div)`

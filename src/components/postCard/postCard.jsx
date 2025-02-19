@@ -11,10 +11,10 @@ function PostCard ({ title, author, shortText, id, commentsList, upVotes, downVo
 
     return(
         <>
-            <PostCardDiv alignStart gray>
+            <PostCardDiv alignStart gray mobileAlignStart>
                 <h3>{title}</h3>
                 <p>{author}</p>
-                <Div row justifyStart gray gap='10px'>
+                <Div row justifyStart gray gap='10px' mobileJustifyStart>
                     <ThumbUpAltOutlinedIcon /><p>{upVotes}</p><p>|</p><ThumbDownOutlinedIcon /><p>{downVotes}</p>
                 </Div>
                 

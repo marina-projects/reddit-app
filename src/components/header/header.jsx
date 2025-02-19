@@ -36,7 +36,7 @@ function Header () {
     return (
         <>    
             <Div row gray justifySpace>
-                <HeaderLogoLink width='50%' gray justifyStart row><NavLink to="/"><img src={logo} width='20px' alt='' /> <span>REDDIT about CODE</span></NavLink></HeaderLogoLink>
+                <HeaderLogoLink width='50%' gray justifyStart row gap='20px'><NavLink to="/"><img src={logo} width='20px' alt='' /> <span>REDDIT about CODE</span></NavLink></HeaderLogoLink>
                 <div>
                     <TextField
                         id="outlined-basic"

@@ -38,12 +38,7 @@ const postListSlice = createSlice({
     error: null,
   },
   reducers: {
-    filterByCategory: (state, action) => {
-      const categoryId = Number(action.payload);
-      state.posts = state.allPosts.filter((post) =>
-        post.categoryId.includes(categoryId)
-      );
-    },
+    
     filterBySearch: (state, action) => {
       const term = action.payload.toLowerCase();
       state.posts = state.allPosts.filter(

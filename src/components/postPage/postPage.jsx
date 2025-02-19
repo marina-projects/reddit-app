@@ -38,11 +38,11 @@ function PostPage () {
     }
     
     return (
-        <PostPageDiv column alignStart gray>
+        <PostPageDiv column alignStart gray mobileAlignStart>
             <NavLink to='/'><ArrowBackIosNewOutlinedIcon /><Button>Back to posts</Button></NavLink>
             <h2><a href={`https://www.reddit.com/${post.permalink}`} target="_blank">{post.title}</a></h2>
             <p>{post.author}</p>
-            <Div row justifyStart gray gap='10px'>
+            <Div row justifyStart gray gap='10px' mobileJustifyStart>
                     <ThumbUpAltOutlinedIcon /><p>{post.ups}</p><p>|</p><ThumbDownOutlinedIcon /><p>{post.downs}</p>
                 </Div>
             <p>{post.selftext}</p>
