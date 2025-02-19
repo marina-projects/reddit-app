@@ -1,7 +1,8 @@
 import styled from "@emotion/styled";
 
 export const Div = styled.div`
-    width: 100%;
+    width: ${(props) => props.width || '100%'};
+    gap: ${(props) => props.gap || '0'};
     display: flex;
     justify-content: ${(props) =>
         props.justifySpace ? 'space-between' :
@@ -35,19 +36,19 @@ export const SidebarDiv = styled(Div)`
     }
 `;
 
-export const PostsListDiv = styled(Div)`
-    width: 70%;
-`
-
 export const PostPageDiv = styled(Div)`
-    width: 70%;
+    width: 90%;
     margin: 20px;
     gap: 20px;
     padding: 20px;
 `
 
-export const PostCardDiv = styled(Div)`
+export const PostsListDiv = styled(Div)`
     width: 100%;
+`
+
+export const PostCardDiv = styled(Div)`
+    width: 90%;
     margin: 10px;
     padding: 20px;
     gap: 20px;
@@ -56,7 +57,7 @@ export const PostCardDiv = styled(Div)`
 
 export const Button = styled.button`
     background-color: ${(props) => 
-        props.primary ? 'black' :
+        props.primary ? '#d93900' :
         props.secondary ? 'purple' :
         props.white ? 'white' :
         'transparent'
@@ -77,9 +78,15 @@ export const Button = styled.button`
     }
 `;
 
-export const HeaderWrapper = styled(Div)`
-    padding: 10px 20px;
-    justify-content: space-between;
-    
-`;
+export const HeaderLogoLink = styled(Div)`
+    a {
+        text-decoration: none;
+        color: #d93900;
+        font-weight: 600;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+    }
+`
 

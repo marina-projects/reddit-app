@@ -1,17 +1,12 @@
-//data
-// import { postData } from "../../templatesData";
-import { fetchPosts } from "../../app/api";
+import { fetchPosts, fetchComments } from "../../app/api";
+import { createSlice, createAsyncThunk, createSelector } from "@reduxjs/toolkit";
 
-//redux
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-
-//async request
-
+// Асинхронный экшен для загрузки постов
 export const loadPostsFromAPI = createAsyncThunk(
   'posts/loadPostsFromAPI',
-  async (subredit, { rejectWithValue }) => {
+  async (subreddit, { rejectWithValue }) => {
     try {
-      const posts = await fetchPosts(subredit);
+      const posts = await fetchPosts(subreddit);
       return posts;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -19,61 +14,91 @@ export const loadPostsFromAPI = createAsyncThunk(
   }
 );
 
-const postListSlice = createSlice({
-    name: "posts",
-    initialState: {
-      allPosts: [], // Оригинальные посты
-      posts: [],    // Отображаемые посты
-      status: 'idle',
-      error: null,
-    },
-    reducers: {
-      /*
-      loadPosts: (state) => {
-        state.allPosts = postData; // Загружаем все посты
-        state.posts = postData;    // Отображаем изначально все посты
-      },
-      */
-      filterByCategory: (state, action) => {
-        const categoryId = Number(action.payload); // Преобразуем payload в число
-        state.posts = state.allPosts.filter((post) =>
-          post.categoryId.includes(categoryId)
-        );
-      },
-      filterBySearch: (state, action) => {
-        const term = action.payload.toLowerCase();
-        state.posts = state.allPosts.filter(
-          (post) =>
-            post.title.toLowerCase().includes(term) || // Поиск в заголовке
-            post.shortText.toLowerCase().includes(term) // Поиск в тексте
-        );
-      },
-      
-      resetFilter: (state) => {
-        state.posts = state.allPosts; // Сбрасываем фильтр, показываем все посты
-      },
-    },
-    extraReducers: (builder) => {
-      builder
-        .addCase(loadPostsFromAPI.pending, (state) => {
-          state.status = 'loading';
-        })
-        .addCase(loadPostsFromAPI.fulfilled, (state, action) => {
-          state.status = 'succeeded';
-          state.allPosts = action.payload;
-          state.posts = action.payload;
-        })
-        .addCase(loadPostsFromAPI.rejected, (state, action) => {
-          state.status = 'failed';
-          state.error = action.payload;
-        })
-    },
-  });
-  
-  export const selectPosts = (state) => state.posts.posts;
-  export const selectStatus = (state) => state.posts.status;
-  export const selectError = (state) => state.posts.error;
+// Асинхронный экшен для загрузки комментариев
+export const loadCommentsFromAPI = createAsyncThunk(
+  'posts/loadCommentsFromAPI',
+  async ({ subreddit, postId }, { rejectWithValue }) => {
+    try {
+      const comments = await fetchComments(subreddit, postId);
+      return { postId, comments };
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
 
-  export const { loadPosts, filterByCategory, resetFilter, filterBySearch } = postListSlice.actions;
-  export default postListSlice.reducer;
-  
+const postListSlice = createSlice({
+  name: "posts",
+  initialState: {
+    allPosts: [], 
+    posts: [],
+    comments: {},
+    postsStatus: 'idle',
+    commentsStatus: 'idle',
+    error: null,
+  },
+  reducers: {
+    filterByCategory: (state, action) => {
+      const categoryId = Number(action.payload);
+      state.posts = state.allPosts.filter((post) =>
+        post.categoryId.includes(categoryId)
+      );
+    },
+    filterBySearch: (state, action) => {
+      const term = action.payload.toLowerCase();
+      state.posts = state.allPosts.filter(
+        (post) =>
+          post.title.toLowerCase().includes(term) ||
+          post.selftext.toLowerCase().includes(term) 
+      );
+    },
+    resetFilter: (state) => {
+      state.posts = state.allPosts;
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(loadPostsFromAPI.pending, (state) => {
+        state.postsStatus = 'loading';
+      })
+      .addCase(loadPostsFromAPI.fulfilled, (state, action) => {
+        state.postsStatus = 'succeeded';
+        state.allPosts = action.payload;
+        state.posts = action.payload;
+      })
+      .addCase(loadPostsFromAPI.rejected, (state, action) => {
+        state.postsStatus = 'failed';
+        state.error = action.payload;
+      })
+      .addCase(loadCommentsFromAPI.pending, (state) => {
+        state.commentsStatus = 'loading';
+      })
+      .addCase(loadCommentsFromAPI.fulfilled, (state, action) => {
+        state.commentsStatus = 'succeeded';
+        const { postId, comments } = action.payload;
+        state.comments[postId] = comments;
+      })
+      .addCase(loadCommentsFromAPI.rejected, (state, action) => {
+        state.commentsStatus = 'failed';
+        state.error = action.payload;
+      });
+  },
+});
+
+// Селекторы
+export const selectPosts = (state) => state.posts.posts;
+export const selectPostsStatus = (state) => state.posts.postsStatus;
+export const selectCommentsStatus = (state) => state.posts.commentsStatus;
+export const selectError = (state) => state.posts.error;
+
+// Селектор для мемоизации массива комментариев
+export const selectComments = createSelector(
+  [(state) => state.posts.comments, (_, postId) => postId], // Передаем postId вторым аргументом
+  (comments, postId) => comments[postId] ?? [] // Возвращаем конкретный массив комментариев
+);
+
+
+
+// Экспортируем экшены и редюсер
+export const { filterByCategory, resetFilter, filterBySearch } = postListSlice.actions;
+export default postListSlice.reducer;
