@@ -4,14 +4,12 @@ import { Global } from '@emotion/react';
 import './App.css'
 
 //components
-
 import PostPage from './components/postPage/postPage';
 import PostList from './features/postList/postList';
-
+import MainPage from './components/mainPage/mainPage';
 
 //libraries
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
-import MainPage from './components/mainPage/mainPage';
 
 function App() {
 
@@ -29,12 +27,8 @@ function App() {
             <Route path='/' element={<PostList />}/>
             <Route path='/:postId' element={<PostPage />} />
           </Route>
-        </Routes>
-          
-          
-      </BrowserRouter>
-      
-      
+        </Routes>                
+      </BrowserRouter>            
     </>
   )
 }

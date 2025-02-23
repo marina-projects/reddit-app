@@ -18,7 +18,7 @@ export const Div = styled.div`
     flex-direction: ${(props) => (props.row ? 'row' : 'column')};
     flex-wrap: ${(props) => (props.row ? 'wrap' : '')};
     background-color: ${(props) => (props.gray ? '#f1f1f1' : 'white')};
-    padding: 10px;
+    padding: ${(props) => props.padding || '10px'};
 
     /* Медиазапрос для мобильных устройств */
     @media (max-width: 480px) {
@@ -52,6 +52,27 @@ export const SidebarDiv = styled(Div)`
     }
 `;
 
+export const FooterDiv = styled(Div)`
+    paddin: 20px;    
+
+    h3 {
+        font-size: 1.17em;
+    }
+    h4 {
+        font-weight: 600;
+        font-size: 14px;
+    }
+    p {
+        font-size: 14px;
+        width: 75%;
+    }
+    a {
+        font-size: 14px;
+        text-decoration: none;
+        color: black;
+    }
+`
+
 export const PostPageDiv = styled(Div)`
     width: 90%;
     margin: 20px;
@@ -76,12 +97,14 @@ export const Button = styled.button`
         props.primary ? '#d93900' :
         props.secondary ? 'purple' :
         props.white ? 'white' :
+        props.footer ? '#272727' :
         'transparent'
     };
     color: ${(props) => 
         props.primary ? 'white' :
         props.secondary ? 'white' :
         props.white ? 'black' :
+        props.footerColor ? 'white' :
         'black'
     };
     padding: 12px 28px;

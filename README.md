@@ -24,6 +24,7 @@ Here's a quick summary of the functionalities in the app:
 - HTML, CSS, JavaScript
 - rest API
 - asynchronous requests
+- styled components
 
 ## What I Learned
 - General React features I have studied previously, but with increased complexity
@@ -34,6 +35,7 @@ Here's a quick summary of the functionalities in the app:
 - Using createAsyncThunk() from Redux Toolkit
 - Working with API and API methids
 - Making responsive design
+- Creating react styled components
 
 ## Using this project
 To run this project:
