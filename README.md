@@ -1,4 +1,4 @@
-# Latest news - react/redux learning app
+# Reddit about code - react/redux learning app
 
 This is a [basic archive app](https://reddit-code.netlify.app/) demonstartes usage of Redux clices, action creators, reducers and extra-reducers with asynchronous API requests from a Reddit.
 
